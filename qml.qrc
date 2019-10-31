@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>QML/Editor.qml</file>
+        <file>QML/qtquickcontrols2.conf</file>
+        <file>QML/main.qml</file>
+        <file>QML/Builder.qml</file>
+        <file>QML/Editor/AddDocumentPanel.qml</file>
+        <file>QML/Editor/AppDocumentPanel/SubjectSlideSelector.qml</file>
+        <file>QML/Editor/AppDocumentPanel/FileSlideDescriptor.qml</file>
+        <file>QML/Editor/SubjectsManager.qml</file>
+        <file>QML/Editor/SubjectsManager/SubjectsManagerModel.qml</file>
+        <file>QML/Editor/SubjectsManager/AddSubjectSlider.qml</file>
+        <file>QML/generics/GenericSlider.qml</file>
+        <file>QML/Editor/SubjectsManager/SubjectManagerSlider.qml</file>
+        <file>QML/Editor/SubjectsManager/DeleteSubjectSlider.qml</file>
+        <file>QML/Editor/SubjectsManager/EditSubjectSlider.qml</file>
+    </qresource>
+</RCC>
