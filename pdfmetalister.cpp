@@ -16,10 +16,8 @@ PdfMetaLister::PdfMetaLister(QObject *parent) :
 
 void PdfMetaLister::list()
 {
-    qDebug() << "generating the list... for " << metalist->getName();
     QList<PdfMetaData>* data = metalist->getList();
     QDir dir(SubjectPath::subjectPath()+"/"+directory);
-    qDebug() << "dir : " << dir;
     QStringList pdfs = listpdfs(directory);
     data->clear();
     data->reserve(pdfs.size());
@@ -60,9 +58,6 @@ QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fi
     QString title = QString::fromStdString(doc["name"].Scalar());
     QString desc = QString::fromStdString(doc["description"].Scalar());
 
-    qDebug() << "title : '" << title << "'";
-    qDebug() << "desc : '" << desc << "'";
-
     return QPair<QString, QString>(title, desc);
 }
 
@@ -73,7 +68,6 @@ PdfMetaList *PdfMetaLister::getMetaList()
 
 void PdfMetaLister::setMetaList(PdfMetaList *list)
 {
-    qDebug() << "Setting metalist : " << list << ", name : " << list->getName();
     metalist = list;
     emit metaListChanged();
 }

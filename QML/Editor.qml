@@ -90,7 +90,7 @@ Rectangle {
         }
     }
 
-    SubjectManagerPath.EditSubjectSlider  {
+    SubjectManagerPath.EditSubjectsSlider  {
         id: editSubjectSlider
         visible: false
         onCanceled: {
@@ -127,6 +127,7 @@ Rectangle {
             addDocumentPanel.close()
             addDocButton.visible = true
         }
+
     }
 
 
@@ -134,7 +135,6 @@ Rectangle {
         if (subjectsLister.list.length === 0) {
             noSubjectsText.visible = true;
         }
-
-        console.log("QML list : '"+subjectsLister.list+"'")
+        addDocumentPanel.open()
     }
 }

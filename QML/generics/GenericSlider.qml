@@ -5,12 +5,13 @@ Rectangle {
     width: parent.width
     height: parent.height
 
-    property int parentheight: -1
+    property int max: -1
+    property string slidevar: "y"
 
     property var open: function(){
         visible = true
+        x = max
         genslideEnterAnim.start()
-
     }
 
     property var close: function(){
@@ -20,35 +21,52 @@ Rectangle {
     NumberAnimation {
         id: genslideEnterAnim
         target: root
-        property: "y"
+        property: slidevar
         duration: 1000
-        from: y
+        from: {
+            switch (root.slidevar){
+                case "x":
+                    return root.x
+                default:
+                    return root.y
+            }
+        }
         to: 0
         easing.type: Easing.InOutQuad
-        onStarted: {
-            console.log("started!!!")
-        }
     }
 
     NumberAnimation {
         id: genslideExitAnim
         target: root
-        property: "y"
+        property: slidevar
         duration: 1000
-        from: y
+        from: {
+            switch (root.slidevar){
+                case "x":
+                    return root.x
+                default:
+                    return root.y
+            }
+        }
         to: {
-            if (parentheight !== -1)console.log("PARENT HEIGHT : "+parentheight)
-            return parentheight==-1?parent.height : parentheight
+            return root.max==-1?
+                        ((root.slidevar==="x") ? parent.width : parent.height) :
+                        root.max
         }
         easing.type: Easing.InOutQuad
         onFinished: {
             root.visible = false
-            console.log("finished!!!!!!!!!!!!!!!")
         }
     }
 
     Component.onCompleted: {
-        y = parent.height
+        switch (slidevar){
+            case "x":
+                x = parent.width
+                break
+            default:
+                y = parent.height
+        }
     }
 
 

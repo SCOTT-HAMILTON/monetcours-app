@@ -11,8 +11,8 @@
         <file>QML/Editor/SubjectsManager/SubjectsManagerModel.qml</file>
         <file>QML/Editor/SubjectsManager/AddSubjectSlider.qml</file>
         <file>QML/generics/GenericSlider.qml</file>
-        <file>QML/Editor/SubjectsManager/SubjectManagerSlider.qml</file>
         <file>QML/Editor/SubjectsManager/DeleteSubjectSlider.qml</file>
-        <file>QML/Editor/SubjectsManager/EditSubjectSlider.qml</file>
+        <file>QML/Editor/SubjectsManager/EditSubjectsSlider.qml</file>
+        <file>QML/Editor/SubjectsManager/ModifySubjectSlider.qml</file>
     </qresource>
 </RCC>

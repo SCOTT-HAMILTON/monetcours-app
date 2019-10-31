@@ -39,12 +39,11 @@ int main(int argc, char *argv[])
     pdfMetaLister.setMetaList(&list);
     pdfMetaLister.list();
 
-    qDebug() << " THE LIST : " << list.count();
 
-    for (int i = 0; i < list.count(); i++){
-        qDebug() << "PDF : {" << list.fileName(i) << ','
-            << list.title(i) << ',' << list.description(i) << '}';
-    }
+//    for (int i = 0; i < list.count(); i++){
+//        qDebug() << "PDF : {" << list.fileName(i) << ','
+//            << list.title(i) << ',' << list.description(i) << '}';
+//    }
 
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);

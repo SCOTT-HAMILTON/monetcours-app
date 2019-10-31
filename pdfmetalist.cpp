@@ -5,7 +5,6 @@
 PdfMetaList::PdfMetaList(QObject *parent) :
     QObject(parent)
 {
-    qDebug() << " A NEW LIST!!!!!";
     list = new QList<PdfMetaData>;
 }
 

@@ -26,10 +26,15 @@ GenPath.GenericSlider {
     Path.SubjectSlideSelector {
         id: subjectSlideSelector
         onFinished: {
-            console.log("AddPanel subject : "+subject)
             subjectSlideSelector.visible = false
             fileSlideSelector.open()
             root.subject = subject
+        }
+        visible: true
+
+        Component.onCompleted: {
+            visible = true
+            y = 0
         }
     }
 
@@ -37,7 +42,6 @@ GenPath.GenericSlider {
         id: fileSlideSelector
         y: root.height.valueOf()
         onFinished: {
-            console.log("AddPanel final : "+subject+", "+title+", "+description)
             root.finished(subject, title, description)
         }
     }
