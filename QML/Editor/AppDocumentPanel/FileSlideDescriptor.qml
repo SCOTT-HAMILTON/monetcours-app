@@ -49,6 +49,7 @@ Path.GenericSlider {
         text: "Add"
         radius: 10
         width: 100
+        height: 50
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.width*0.05

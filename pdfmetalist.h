@@ -4,12 +4,7 @@
 #include <QObject>
 #include <QList>
 #include <QVariant>
-
-struct PdfMetaData {
-    QString fileName;
-    QString title;
-    QString description;
-};
+#include "pdfmetadata.h"
 
 class PdfMetaList : public QObject
 {

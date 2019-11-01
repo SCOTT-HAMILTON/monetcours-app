@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         directorymaker.cpp \
+        documentadder.cpp \
         main.cpp \
         pdfmetalist.cpp \
         pdfmetalister.cpp \
@@ -40,6 +41,8 @@ LIBS += -lyaml-cpp
 
 HEADERS += \
     directorymaker.h \
+    documentadder.h \
+    pdfmetadata.h \
     pdfmetalist.h \
     pdfmetalister.h \
     subjectadder.h \

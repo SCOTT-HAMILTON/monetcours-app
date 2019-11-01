@@ -17,6 +17,7 @@ GenPath.GenericSlider {
     property string subject: "None"
 
     signal finished(var subject, var title, var description);
+    signal canceled();
 
     onFinished: {
         subjectSlideSelector.visible = true
@@ -25,6 +26,8 @@ GenPath.GenericSlider {
 
     Path.SubjectSlideSelector {
         id: subjectSlideSelector
+        subjects: subjectsLister.list
+
         onFinished: {
             subjectSlideSelector.visible = false
             fileSlideSelector.open()
@@ -43,6 +46,20 @@ GenPath.GenericSlider {
         y: root.height.valueOf()
         onFinished: {
             root.finished(subject, title, description)
+        }
+    }
+
+    RoundButton {
+        text: "Cancel"
+        height: 50
+        radius: 10
+        width: 100
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: parent.width*0.05
+        anchors.leftMargin: parent.width*0.1
+        onClicked: {
+            root.canceled()
         }
     }
 

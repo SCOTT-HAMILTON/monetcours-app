@@ -102,13 +102,14 @@ Rectangle {
         id: fileDialog
         title: "Please choose a file"
         folder: shortcuts.home
-        selectMultiple: true
+        selectMultiple: false
         defaultSuffix: "pdf"
         nameFilters: ["Pdf files (*.pdf)"]
         onAccepted: {
             console.log("You chose: " + fileDialog.fileUrls)
             addDocumentPanel.open(fileDialog.fileUrls)
             addDocButton.visible = false
+            console.log("file :"+fileUrl)
         }
         onRejected: {
             console.log("Canceled")
@@ -118,14 +119,25 @@ Rectangle {
         }
     }
 
-    Path.AddDocumentPanel  {
+    Path.AddDocumentPanel {
         id: addDocumentPanel
         y: root.height.valueOf()
         visible: false
         onFinished: {
-            console.log("File added : "+subject+", "+title+", "+description)
+            console.log("File to add : "+subject+", "+title+", "+description)
             addDocumentPanel.close()
             addDocButton.visible = true
+            subjectsManager.visible = true
+            documentAdder.add(fileDialog.fileUrl, subject, title, description);
+        }
+        onCanceled: {
+            addDocumentPanel.close()
+            addDocumentPanel.visible = true
+            subjectsManager.visible = true
+        }
+
+        onOpened: {
+            subjectsManager.visible = false
         }
 
     }
@@ -135,6 +147,6 @@ Rectangle {
         if (subjectsLister.list.length === 0) {
             noSubjectsText.visible = true;
         }
-        addDocumentPanel.open()
+//        addDocumentPanel.open()
     }
 }

@@ -11,7 +11,19 @@ Path.GenericSlider {
     height: parent.height
     color: "green"
 
+    property var subjects: []
+
     signal finished(var subject);
+
+    function updateModel(){
+        subjectsModel.clear()
+        for (let i = 0; i < subjects.length; ++i){
+            console.log("sub : "+subjects[i])
+            subjectsModel.append({"name" : subjects[i]})
+        }
+    }
+
+    onSubjectsChanged: updateModel()
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -24,12 +36,18 @@ Path.GenericSlider {
     ComboBox{
         id: subjectComboBox
         anchors.centerIn: parent
+        model: ListModel{
+            id: subjectsModel
+        }
 
-        model: ["French", "Math", "English", "Biology"]
+        Component.onCompleted: {
+            root.updateModel();
+        }
     }
 
     RoundButton {
         text: "Next"
+        height: 50
         radius: 10
         width: 100
         anchors.right: parent.right

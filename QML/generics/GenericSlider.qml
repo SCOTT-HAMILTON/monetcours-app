@@ -8,14 +8,19 @@ Rectangle {
     property int max: -1
     property string slidevar: "y"
 
+    signal opened();
+    signal closed();
+
     property var open: function(){
         visible = true
         x = max
+        genslideEnterAnim.stop()
         genslideEnterAnim.start()
     }
 
     property var close: function(){
         genslideExitAnim.start()
+        closed()
     }
 
     NumberAnimation {
@@ -33,6 +38,7 @@ Rectangle {
         }
         to: 0
         easing.type: Easing.InOutQuad
+        onFinished: root.opened()
     }
 
     NumberAnimation {
@@ -56,6 +62,7 @@ Rectangle {
         easing.type: Easing.InOutQuad
         onFinished: {
             root.visible = false
+            root.closed()
         }
     }
 

@@ -1,13 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDebug>
 
 #include <directorymaker.h>
 #include <subjectslister.h>
 #include <subjectadder.h>
 #include <subjectdeleter.h>
 #include <pdfmetalister.h>
-#include <QDebug>
+#include <documentadder.h>
 
 int main(int argc, char *argv[])
 {
@@ -35,16 +36,11 @@ int main(int argc, char *argv[])
     SubjectsLister subjectsLister;
     PdfMetaLister pdfMetaLister;
     PdfMetaList list;
+    DocumentAdder documentAdder;
+
     pdfMetaLister.setDirectory("Math");
     pdfMetaLister.setMetaList(&list);
     pdfMetaLister.list();
-
-
-//    for (int i = 0; i < list.count(); i++){
-//        qDebug() << "PDF : {" << list.fileName(i) << ','
-//            << list.title(i) << ',' << list.description(i) << '}';
-//    }
-
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);
     QObject::connect(&subjectDeleter, &SubjectDeleter::deleted, &subjectsLister, &SubjectsLister::update);
@@ -52,7 +48,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectAdder", &subjectAdder);
     engine.rootContext()->setContextProperty("subjectDeleter", &subjectDeleter);
     engine.rootContext()->setContextProperty("subjectsLister", &subjectsLister);
-//    engine.rootContext()->setContextProperty("pdfMetaLister", &pdfMetaLister);
+    engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
 
 
     engine.load(url);
