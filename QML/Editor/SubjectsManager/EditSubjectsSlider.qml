@@ -48,7 +48,7 @@ GenPath.GenericSlider {
             property int textWidth: 200
             property int buttonWidth: 70
             property int textSpacing: 10
-            width: textWidth*3+3*textSpacing+buttonWidth
+            width: textWidth*3+4*textSpacing+buttonWidth*2
             height: 300
             anchors.centerIn: parent
 
@@ -78,14 +78,28 @@ GenPath.GenericSlider {
                     }
 
                     RoundButton{
-                        text: "modify"
-                        width: grid.buttonWidth
-                        objectName: {
-                            return fileName+"modifyButton"
+                        text: "delete"
+                        background: Rectangle {
+                            color: "red"
+                            radius: 10
                         }
+
+                        width: grid.buttonWidth
                         onClicked: {
-                            modifySubjectSlider.docName = fileName
-                            modifySubjectSlider.open()
+                            deleteDocumentSlider.docName = fileName
+                            deleteDocumentSlider.open()
+                        }
+                    }
+
+                    RoundButton{
+                        text: "save"
+                        background: Rectangle {
+                            color: "lightgrey"
+                            radius: 10
+                        }
+
+                        width: grid.buttonWidth
+                        onClicked: {
                         }
                     }
 
@@ -139,24 +153,21 @@ GenPath.GenericSlider {
         }
     }
 
-    Path.ModifySubjectSlider {
-        id: modifySubjectSlider
-
-        subject: subject
-
-        onFinished: {
-            close()
-        }
-
-        visible: false
-    }
-
     Path.DeleteDocumentSlider {
         id: deleteDocumentSlider
+
+        subject: root.subject
+
         onDeleted: {
+            console.log("deleting : "+docName+", "+subject)
             close()
-            documentDeleter.deleteDocument(name, subject)
+            documentDeleter.deleteDocument(docName, subject)
         }
+
+        onCanceled: {
+            close()
+        }
+
         visible: false
     }
 }

@@ -13,7 +13,6 @@
         <file>QML/generics/GenericSlider.qml</file>
         <file>QML/Editor/SubjectsManager/DeleteSubjectSlider.qml</file>
         <file>QML/Editor/SubjectsManager/EditSubjectsSlider.qml</file>
-        <file>QML/Editor/SubjectsManager/ModifySubjectSlider.qml</file>
         <file>QML/Editor/SubjectsManager/DeleteDocumentSlider.qml</file>
         <file>QML/generics/GenericDeleteValidationSlider.qml</file>
     </qresource>
