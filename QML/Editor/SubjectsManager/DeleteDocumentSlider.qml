@@ -5,6 +5,4 @@ import "qrc:/QML/generics" as Path
 
 Path.GenericDeleteValidationSlider {
     id: root
-
-
 }

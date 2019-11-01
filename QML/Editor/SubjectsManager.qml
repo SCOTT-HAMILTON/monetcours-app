@@ -48,7 +48,7 @@ Item {
                       text: qsTr("Edit")
                       shortcut: StandardKey.ZoomIn
                       onTriggered: {
-                          editSubjectSlider.name = button.subName
+                          editSubjectSlider.subject = button.subName
                           editSubjectSlider.open()
                       }
                     }

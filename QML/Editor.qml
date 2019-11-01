@@ -79,14 +79,18 @@ Rectangle {
 
     SubjectManagerPath.DeleteSubjectSlider  {
         id: deleteSubjectSlider
-        y: root.height.valueOf()
         visible: false
-        onFinished: {
-            subjectDeleter.deletesubject(name)
+        onDeleted: {
+            console.log("SUbject to delete : "+deleteSubjectSlider.name)
+            subjectDeleter.deletesubject(deleteSubjectSlider.name)
             deleteSubjectSlider.close()
         }
         onCanceled: {
             deleteSubjectSlider.close()
+        }
+
+        Component.onCompleted: {
+            y = parent.height
         }
     }
 

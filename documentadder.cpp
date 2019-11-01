@@ -1,5 +1,6 @@
 #include "documentadder.h"
 #include "subjectpath.h"
+#include "pdftoyamlpath.h"
 
 #include <QDebug>
 #include <QDir>
@@ -31,10 +32,7 @@ bool DocumentAdder::addDocument(PdfMetaData metapdf, QString subject)
     bool ret_copy = QFile::copy(source, dest.path());
 
     bool ret_touch = [&](){
-        QString yaml_path(dest.absolutePath().chopped(3)+"yaml");
-        if (dest.absolutePath().endsWith("-dark.pdf")){
-            yaml_path = dest.absolutePath().chopped(9)+".yaml";
-        }
+        QString yaml_path = PdfToYamlPath::getYaml(dest.absolutePath());
         QFile yaml_file(yaml_path);
         bool ret = yaml_file.open(QIODevice::NewOnly);
         QString content("name: "+metapdf.title+"\ndescription: "+metapdf.description);

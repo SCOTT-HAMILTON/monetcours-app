@@ -10,17 +10,20 @@ Rectangle {
 
     signal opened();
     signal closed();
+    signal opening();
+    signal closing();
 
     property var open: function(){
         visible = true
         x = max
         genslideEnterAnim.stop()
         genslideEnterAnim.start()
+        opening();
     }
 
     property var close: function(){
         genslideExitAnim.start()
-        closed()
+        closing()
     }
 
     NumberAnimation {

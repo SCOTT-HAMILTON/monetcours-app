@@ -8,6 +8,7 @@ import "qrc:/QML/generics" as GenPath
 
 import io.monetapp.pdfmetalister 1.0
 import io.monetapp.pdfmetalist 1.0
+import io.monetapp.documentdeleter 1.0
 
 GenPath.GenericSlider {
     id: root
@@ -15,8 +16,23 @@ GenPath.GenericSlider {
     height: parent.height
     color: "lightgrey"
 
-    property string name: "None"
+    property string subject: "None"
     signal canceled();
+
+    onOpening: {
+        update()
+    }
+
+    function update(){
+        lister.directory = subject
+        lister.list()
+        nameModel.clear()
+        for (let i = 0; i < list.count(); i++){
+            nameModel.append({"fileName" : list.fileName(i),
+                              "title" : list.title(i),
+                              "description" : list.description(i)})
+        }
+    }
 
     Rectangle {
         id: blueRect
@@ -68,6 +84,7 @@ GenPath.GenericSlider {
                             return fileName+"modifyButton"
                         }
                         onClicked: {
+                            modifySubjectSlider.docName = fileName
                             modifySubjectSlider.open()
                         }
                     }
@@ -84,15 +101,8 @@ GenPath.GenericSlider {
         }
     }
 
-    onNameChanged: {
-        lister.directory = name
-        lister.list()
-        nameModel.clear();
-        for (let i = 0; i < list.count(); i++){
-            nameModel.append({"fileName" : list.fileName(i),
-                              "title" : list.title(i),
-                              "description" : list.description(i)})
-        }
+    onSubjectChanged: {
+        update();
     }
 
 
@@ -100,7 +110,7 @@ GenPath.GenericSlider {
 
     PdfMetaLister {
         id: lister
-        directory: name
+        directory: subject
         metaList: PdfMetaList {
             id: list
             name: "Victor"
@@ -122,12 +132,31 @@ GenPath.GenericSlider {
         }
     }
 
+    DocumentDeleter {
+        id: documentDeleter
+        onDeleted: {
+            update();
+        }
+    }
+
     Path.ModifySubjectSlider {
         id: modifySubjectSlider
-        x: 200
-        onXChanged: {
+
+        subject: subject
+
+        onFinished: {
+            close()
         }
 
+        visible: false
+    }
+
+    Path.DeleteDocumentSlider {
+        id: deleteDocumentSlider
+        onDeleted: {
+            close()
+            documentDeleter.deleteDocument(name, subject)
+        }
         visible: false
     }
 }

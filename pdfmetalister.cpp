@@ -1,5 +1,6 @@
 #include "pdfmetalister.h"
 #include "subjectpath.h"
+#include "pdftoyamlpath.h"
 
 #include <qiterator.h>
 #include <QDir>
@@ -40,6 +41,8 @@ QStringList PdfMetaLister::listpdfs(QString directory)
     regex.setCaseSensitivity(Qt::CaseInsensitive);
     QStringList pdfs = tmp.filter(regex);
 
+    qDebug() << "pdfs in directory ? " << directory << " : " << pdfs;
+
     return pdfs;
 }
 
@@ -47,11 +50,7 @@ QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fi
 {
     QDir dir(directory);
 
-    QString yaml_path = dir.path()+"/"+fileName.chopped(3)+"yaml";
-
-    if (yaml_path.endsWith("-dark.yaml")){
-        yaml_path = yaml_path.chopped(10)+".yaml";
-    }
+    QString yaml_path = PdfToYamlPath::getYaml(dir.path()+"/"+fileName);
 
     YAML::Node doc = YAML::LoadFile(yaml_path.toStdString());
 

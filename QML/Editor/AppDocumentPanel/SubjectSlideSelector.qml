@@ -18,7 +18,6 @@ Path.GenericSlider {
     function updateModel(){
         subjectsModel.clear()
         for (let i = 0; i < subjects.length; ++i){
-            console.log("sub : "+subjects[i])
             subjectsModel.append({"name" : subjects[i]})
         }
     }

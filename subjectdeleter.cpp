@@ -12,9 +12,11 @@ SubjectDeleter::SubjectDeleter(QObject *parent) :
 bool SubjectDeleter::deletesubject(QString name)
 {
     QDir path = SubjectPath::subjectPath()+"/"+name;
+    qDebug() << "deleting subject : " << path;
     if (path.exists()){
-        bool ret = path.rmdir(path.absolutePath());
+        bool ret = path.removeRecursively();
         emit deleted(name);
+        qDebug() << "deleted ? " << ret << " : " << path.absolutePath();
         return ret;
     }
     return true;

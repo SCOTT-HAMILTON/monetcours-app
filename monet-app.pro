@@ -16,9 +16,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         directorymaker.cpp \
         documentadder.cpp \
+        documentdeleter.cpp \
         main.cpp \
         pdfmetalist.cpp \
         pdfmetalister.cpp \
+        pdftoyamlpath.cpp \
         subjectadder.cpp \
         subjectdeleter.cpp \
         subjectpath.cpp \
@@ -42,9 +44,11 @@ LIBS += -lyaml-cpp
 HEADERS += \
     directorymaker.h \
     documentadder.h \
+    documentdeleter.h \
     pdfmetadata.h \
     pdfmetalist.h \
     pdfmetalister.h \
+    pdftoyamlpath.h \
     subjectadder.h \
     subjectdeleter.h \
     subjectpath.h \

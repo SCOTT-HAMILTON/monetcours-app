@@ -9,6 +9,7 @@
 #include <subjectdeleter.h>
 #include <pdfmetalister.h>
 #include <documentadder.h>
+#include <documentdeleter.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SubjectsLister>("io.monetapp.subjectlister", 1, 0, "SubjectLister");
     qmlRegisterType<PdfMetaList>("io.monetapp.pdfmetalist", 1, 0, "PdfMetaList");
     qmlRegisterType<PdfMetaLister>("io.monetapp.pdfmetalister", 1, 0, "PdfMetaLister");
+    qmlRegisterType<DocumentDeleter>("io.monetapp.documentdeleter", 1, 0, "DocumentDeleter");
 
 
     QQmlApplicationEngine engine;
@@ -49,7 +51,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectDeleter", &subjectDeleter);
     engine.rootContext()->setContextProperty("subjectsLister", &subjectsLister);
     engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
-
 
     engine.load(url);
 
