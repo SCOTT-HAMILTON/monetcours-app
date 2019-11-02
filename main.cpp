@@ -10,6 +10,7 @@
 #include <pdfmetalister.h>
 #include <documentadder.h>
 #include <documentdeleter.h>
+#include <documentsaver.h>
 
 int main(int argc, char *argv[])
 {
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     PdfMetaLister pdfMetaLister;
     PdfMetaList list;
     DocumentAdder documentAdder;
+    DocumentSaver documentSaver;
 
     pdfMetaLister.setDirectory("Math");
     pdfMetaLister.setMetaList(&list);
@@ -51,6 +53,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectDeleter", &subjectDeleter);
     engine.rootContext()->setContextProperty("subjectsLister", &subjectsLister);
     engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
+    engine.rootContext()->setContextProperty("documentSaver", &documentSaver);
 
     engine.load(url);
 

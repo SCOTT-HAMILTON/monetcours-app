@@ -17,6 +17,7 @@ SOURCES += \
         directorymaker.cpp \
         documentadder.cpp \
         documentdeleter.cpp \
+        documentsaver.cpp \
         main.cpp \
         pdfmetalist.cpp \
         pdfmetalister.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     directorymaker.h \
     documentadder.h \
     documentdeleter.h \
+    documentsaver.h \
     pdfmetadata.h \
     pdfmetalist.h \
     pdfmetalister.h \

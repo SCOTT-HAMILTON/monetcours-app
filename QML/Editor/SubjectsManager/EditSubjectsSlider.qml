@@ -10,7 +10,7 @@ import io.monetapp.pdfmetalister 1.0
 import io.monetapp.pdfmetalist 1.0
 import io.monetapp.documentdeleter 1.0
 
-GenPath.GenericSlider {
+GenPath.GenericInteractiveSlider {
     id: root
     width: parent.width
     height: parent.height
@@ -36,12 +36,33 @@ GenPath.GenericSlider {
 
     Rectangle {
         id: blueRect
-        width: grid.width*1.2
-        height: grid.height*1.4
+        width: root.width*0.9
+        height: root.height*0.75
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: parent.width*0.01
+//        anchors.centerIn: parent
         y: parent.height*0.05
         radius: 10
-        color: "lightblue"        
+        color: "lightblue"
+
+        Row {
+            anchors.bottomMargin: grid.height*0.2
+            anchors.bottom: grid.top
+            anchors.left: grid.left
+            anchors.leftMargin: grid.width*0.4
+            spacing: grid.width*0.15
+            Text{
+                text: "Title"
+                font.bold: true
+                font.pointSize: 15
+            }
+            Text{
+                text: "Description"
+                font.bold: true
+                font.pointSize: 15
+            }
+        }
 
         ListView {
             id: grid
@@ -49,7 +70,10 @@ GenPath.GenericSlider {
             property int buttonWidth: 70
             property int textSpacing: 10
             width: textWidth*3+4*textSpacing+buttonWidth*2
-            height: 300
+            height: 250
+            anchors.bottom: blueRect.bottom
+            anchors.left: parent.left
+
             anchors.centerIn: parent
 
             model: ListModel {
@@ -64,17 +88,22 @@ GenPath.GenericSlider {
                         text: fileName
                         width: grid.textWidth
                         clip: true
+                        readOnly: true
                     }
 
-                    TextInput {
+                    TextField {
+                        id: titleInput
                         text: title
                         width: grid.textWidth
                         clip: true
+                        placeholderText: "Title"
                     }
-                    TextInput {
+                    TextField {
+                        id: descInput
                         text: description
                         width: grid.textWidth
                         clip: true
+                        placeholderText: "Description"
                     }
 
                     RoundButton{
@@ -100,6 +129,12 @@ GenPath.GenericSlider {
 
                         width: grid.buttonWidth
                         onClicked: {
+//                             TODO MAKE SAVE Slider Pop only when documentSaver
+//                             emits signal successed or something like so
+                            documentSaver.save(fileName, subject,
+                                               titleInput.text,
+                                               descInput.text)
+                            saveDocumentSlider.open()
                         }
                     }
 
@@ -168,6 +203,11 @@ GenPath.GenericSlider {
             close()
         }
 
+        visible: false
+    }
+
+    Path.SaveDocumentSlider {
+        id: saveDocumentSlider
         visible: false
     }
 }

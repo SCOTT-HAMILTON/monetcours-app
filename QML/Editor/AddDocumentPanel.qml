@@ -6,7 +6,7 @@ import QtQuick.Controls.Styles 1.4
 import "./AppDocumentPanel" as Path
 import "qrc:/QML/generics" as GenPath
 
-GenPath.GenericSlider {
+GenPath.GenericInteractiveSlider {
     id: root
     width: parent.width
     height: parent.height

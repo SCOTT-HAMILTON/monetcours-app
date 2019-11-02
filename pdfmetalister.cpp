@@ -52,7 +52,13 @@ QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fi
 
     QString yaml_path = PdfToYamlPath::getYaml(dir.path()+"/"+fileName);
 
-    YAML::Node doc = YAML::LoadFile(yaml_path.toStdString());
+    YAML::Node doc;
+
+    try {
+        doc = YAML::LoadFile(yaml_path.toStdString());
+    } catch (const YAML::BadFile& e){
+        qDebug() << "Error YAML bad file : " << yaml_path;
+    }
 
     QString title = QString::fromStdString(doc["name"].Scalar());
     QString desc = QString::fromStdString(doc["description"].Scalar());

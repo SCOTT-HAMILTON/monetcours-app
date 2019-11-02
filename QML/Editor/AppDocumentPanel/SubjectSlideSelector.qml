@@ -5,7 +5,7 @@ import QtQuick.Controls.Styles 1.4
 
 import "qrc:/QML/generics" as Path
 
-Path.GenericSlider {
+Path.GenericInteractiveSlider {
     id: root
     width: parent.width
     height: parent.height
