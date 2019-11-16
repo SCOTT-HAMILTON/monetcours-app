@@ -12,6 +12,7 @@ class SubjectsLister : public QObject
 public:
     explicit SubjectsLister(QObject *parent = nullptr);
     static QStringList list();
+    Q_INVOKABLE void sync();
 
 public slots:
     void update();

@@ -2,6 +2,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
+import Qt.labs.platform 1.1
 
 import "qrc:/QML/Editor" as Path
 import "qrc:/QML/Editor/SubjectsManager" as SubjectManagerPath
@@ -12,6 +13,21 @@ Rectangle {
     id: root
     anchors.fill: parent
     color: "blue"
+
+    RoundButton {
+        id: subjectsPathButton
+        text: "Where are the subjects ?"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: parent.height*0.02
+        anchors.rightMargin: parent.width*0.01
+
+
+        onClicked: {
+            folderDialog.open()
+        }
+
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -53,11 +69,11 @@ Rectangle {
 
         Item {
             Layout.fillWidth: true
-            implicitHeight: 50
+            implicitHeight: 100
             Path.SubjectsManager {
                 id: subjectsManager
-                anchors.centerIn: parent
                 subjects: subjectsLister.list
+                anchors.centerIn: parent
             }
 
         }
@@ -105,8 +121,6 @@ Rectangle {
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
-        folder: shortcuts.home
-        selectMultiple: false
         defaultSuffix: "pdf"
         nameFilters: ["Pdf files (*.pdf)"]
         onAccepted: {
@@ -151,6 +165,23 @@ Rectangle {
         if (subjectsLister.list.length === 0) {
             noSubjectsText.visible = true;
         }
-//        addDocumentPanel.open()
+    }
+
+    FolderDialog {
+        id: folderDialog
+        title: "Please choose a folder"
+        options: FolderDialog.ShowDirsOnly
+        onAccepted: {
+            console.log("You chose: " + folderDialog.folder)
+            pathModifyer.modifyPath(folder)
+            subjectsLister.sync()
+            console.log("file :"+folderDialog.folder)
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+        Component.onCompleted: {
+            visible = false
+        }
     }
 }

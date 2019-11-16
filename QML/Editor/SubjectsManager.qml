@@ -9,19 +9,20 @@ Item {
     id: root
     property int buttonSize: 100
     property var subjects: []
-
-    width: model.count*buttonSize
-    height: 50
+    anchors.centerIn: parent
+    height: 100
 //    color: "white"
 
     ListView {
         id: listView
 
+        width: buttonSize*(model.count+1)
+        anchors.centerIn: parent
+        height: 50
         model: Path.SubjectsManagerModel{
             id: model
             subjects: root.subjects
         }
-
 
         Component {
             id: nameDelegate
@@ -65,9 +66,16 @@ Item {
             }
         }
         delegate: nameDelegate
-        implicitHeight: contentHeight
-        implicitWidth: contentWidth
+
         orientation: Qt.LeftToRight
+        ScrollBar.horizontal: ScrollBar{
+            active: true
+//            onActiveChanged: {
+//                if (!active)
+//                    active = true;
+//            }
+            height: 20
+        }
     }
 }
 

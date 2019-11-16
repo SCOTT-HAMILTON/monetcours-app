@@ -143,6 +143,7 @@ GenPath.GenericInteractiveSlider {
             implicitHeight: contentHeight
             implicitWidth: contentWidth
             ScrollBar.vertical: ScrollBar{
+                active: true
                 width: 20
                 anchors.rightMargin: -50
                 anchors.right: grid.right

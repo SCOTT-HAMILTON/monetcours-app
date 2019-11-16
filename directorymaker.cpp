@@ -7,7 +7,7 @@
 
 void DirectoryMaker::makedir()
 {
-    QDir path = SubjectPath::subjectPath();
+    QDir path = SubjectPath::path.subjectPath();
     if (!path.exists()){
         path.mkdir(path.absolutePath());
     }

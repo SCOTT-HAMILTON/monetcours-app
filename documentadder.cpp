@@ -25,7 +25,7 @@ bool DocumentAdder::addDocument(PdfMetaData metapdf, QString subject)
         else
             source = origin.toLocalFile();
         QDir fileName(source);
-        dest.setPath(SubjectPath::subjectPath()+"/"+subject+"/"+fileName.dirName());
+        dest.setPath(SubjectPath::path.subjectPath()+"/"+subject+"/"+fileName.dirName());
     }
 
     qDebug() << "copy " << source << " to " << dest.path();

@@ -16,7 +16,7 @@ bool DocumentSaver::saveDocument(PdfMetaData metapdf, QString subject)
     qDebug() << "SAVING PDF : meta data : {"
              << metapdf.fileName << ',' << metapdf.title << ',' <<
                 metapdf.description << '}' << "for the " << subject << " class.";
-    QDir dest(SubjectPath::subjectPath()+"/"+subject+"/"+metapdf.fileName);
+    QDir dest(SubjectPath::path.subjectPath()+"/"+subject+"/"+metapdf.fileName);
 
 
     qDebug() << "dest : file : " << dest;

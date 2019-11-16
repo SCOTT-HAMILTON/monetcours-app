@@ -1,4 +1,4 @@
-#ifndef PDFMETALISTER_H
+ #ifndef PDFMETALISTER_H
 #define PDFMETALISTER_H
 
 #include <QStringList>

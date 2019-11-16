@@ -11,6 +11,8 @@
 #include <documentadder.h>
 #include <documentdeleter.h>
 #include <documentsaver.h>
+#include <builder.h>
+#include <subjectpathmodifyer.h>
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<PdfMetaList>("io.monetapp.pdfmetalist", 1, 0, "PdfMetaList");
     qmlRegisterType<PdfMetaLister>("io.monetapp.pdfmetalister", 1, 0, "PdfMetaLister");
     qmlRegisterType<DocumentDeleter>("io.monetapp.documentdeleter", 1, 0, "DocumentDeleter");
-
+    qmlRegisterType<Builder>("io.monetapp.monetbuilder", 1, 0, "MonetBuilder");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/QML/main.qml"));
@@ -41,6 +43,7 @@ int main(int argc, char *argv[])
     PdfMetaList list;
     DocumentAdder documentAdder;
     DocumentSaver documentSaver;
+    SubjectPathModifyer pathModifyer;
 
     pdfMetaLister.setDirectory("Math");
     pdfMetaLister.setMetaList(&list);
@@ -54,6 +57,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectsLister", &subjectsLister);
     engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
     engine.rootContext()->setContextProperty("documentSaver", &documentSaver);
+    engine.rootContext()->setContextProperty("pathModifyer", &pathModifyer);
 
     engine.load(url);
 

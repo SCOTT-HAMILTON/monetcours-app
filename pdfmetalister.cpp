@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <QCoreApplication>
+#include <algorithm>
 
 PdfMetaLister::PdfMetaLister(QObject *parent) :
     QObject(parent)
@@ -18,7 +19,7 @@ PdfMetaLister::PdfMetaLister(QObject *parent) :
 void PdfMetaLister::list()
 {
     QList<PdfMetaData>* data = metalist->getList();
-    QDir dir(SubjectPath::subjectPath()+"/"+directory);
+    QDir dir(SubjectPath::path.subjectPath()+"/"+directory);
     QStringList pdfs = listpdfs(directory);
     data->clear();
     data->reserve(pdfs.size());
@@ -35,11 +36,15 @@ QString PdfMetaLister::getDirectory() const
 
 QStringList PdfMetaLister::listpdfs(QString directory)
 {
-    QDir dir(SubjectPath::subjectPath()+"/"+directory);
+    QDir dir(SubjectPath::path.subjectPath()+"/"+directory);
     QStringList tmp = dir.entryList(QStringList() << "*.*",QDir::Files);
-    QRegExp regex(".*\.pdf");
-    regex.setCaseSensitivity(Qt::CaseInsensitive);
-    QStringList pdfs = tmp.filter(regex);
+    QRegExp regex1(".*\.pdf");
+    regex1.setCaseSensitivity(Qt::CaseInsensitive);
+    QStringList pdfs = tmp.filter(regex1);
+
+    pdfs.erase(std::remove_if(pdfs.begin(), pdfs.end(),
+                              [](const QString& s){return s.toLower().endsWith("-dark.pdf");}),
+               pdfs.end());
 
     qDebug() << "pdfs in directory ? " << directory << " : " << pdfs;
 

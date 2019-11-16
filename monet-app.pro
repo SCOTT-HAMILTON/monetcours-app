@@ -14,6 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        builder.cpp \
         directorymaker.cpp \
         documentadder.cpp \
         documentdeleter.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
         subjectadder.cpp \
         subjectdeleter.cpp \
         subjectpath.cpp \
+        subjectpathmodifyer.cpp \
         subjectslister.cpp
 
 RESOURCES += qml.qrc
@@ -43,6 +45,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 LIBS += -lyaml-cpp
 
 HEADERS += \
+    builder.h \
     directorymaker.h \
     documentadder.h \
     documentdeleter.h \
@@ -54,4 +57,5 @@ HEADERS += \
     subjectadder.h \
     subjectdeleter.h \
     subjectpath.h \
+    subjectpathmodifyer.h \
     subjectslister.h

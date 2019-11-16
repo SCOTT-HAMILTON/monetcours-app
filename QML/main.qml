@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.13
 import "qrc:/QML" as Path
 
 ApplicationWindow {
+    id: window
     visible: true
     width: 1000
     height: 600
@@ -36,4 +37,6 @@ ApplicationWindow {
             Path.Builder{}
         }
     }
+
+
 }

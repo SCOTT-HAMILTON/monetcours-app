@@ -12,7 +12,7 @@ DocumentDeleter::DocumentDeleter(QObject *parent) :
 
 bool DocumentDeleter::deleteDoc(QString filePath, QString subject)
 {
-    QFile file(SubjectPath::subjectPath()+"/"+subject+"/"+filePath);
+    QFile file(SubjectPath::path.subjectPath()+"/"+subject+"/"+filePath);
 
     QFile yaml(PdfToYamlPath::getYaml(file.fileName()));
     qDebug() << "files: " << file << " + " << yaml;
