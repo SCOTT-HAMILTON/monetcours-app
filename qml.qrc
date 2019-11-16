@@ -16,5 +16,6 @@
         <file>QML/Editor/SubjectsManager/DeleteDocumentSlider.qml</file>
         <file>QML/generics/GenericDeleteValidationSlider.qml</file>
         <file>QML/Editor/SubjectsManager/SaveDocumentSlider.qml</file>
+        <file>QML/Deployer.qml</file>
     </qresource>
 </RCC>

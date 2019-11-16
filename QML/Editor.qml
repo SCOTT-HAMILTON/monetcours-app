@@ -171,6 +171,7 @@ Rectangle {
         id: folderDialog
         title: "Please choose a folder"
         options: FolderDialog.ShowDirsOnly
+//        folder:
         onAccepted: {
             console.log("You chose: " + folderDialog.folder)
             pathModifyer.modifyPath(folder)

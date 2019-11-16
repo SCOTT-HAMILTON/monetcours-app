@@ -20,6 +20,9 @@ ApplicationWindow {
         TabButton {
             text: qsTr("Builder")
         }
+        TabButton {
+            text: qsTr("Deployer")
+        }
     }
 
     StackLayout {
@@ -29,12 +32,15 @@ ApplicationWindow {
         currentIndex: bar.currentIndex
         Item {
             id: editorTab
-
             Path.Editor{}
         }
         Item {
             id: builderTab
             Path.Builder{}
+        }
+        Item {
+            id: deployerTab
+            Path.Deployer{}
         }
     }
 
