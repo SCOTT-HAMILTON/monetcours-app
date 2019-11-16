@@ -1,4 +1,4 @@
-QT += quick
+QT += quick qml
 
 CONFIG += c++17
 
@@ -26,7 +26,6 @@ SOURCES += \
         subjectadder.cpp \
         subjectdeleter.cpp \
         subjectpath.cpp \
-        subjectpathmodifyer.cpp \
         subjectslister.cpp
 
 RESOURCES += qml.qrc
@@ -42,7 +41,12 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-LIBS += -lyaml-cpp
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cpp
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cppd
+else:unix: LIBS += -lyaml-cpp
+
+INCLUDEPATH += $$PWD/../../../git/yaml-cpp/include
+DEPENDPATH += $$PWD/../../../git/yaml-cpp/include
 
 HEADERS += \
     builder.h \
@@ -57,5 +61,4 @@ HEADERS += \
     subjectadder.h \
     subjectdeleter.h \
     subjectpath.h \
-    subjectpathmodifyer.h \
     subjectslister.h

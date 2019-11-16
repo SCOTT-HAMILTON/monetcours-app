@@ -12,7 +12,7 @@
 #include <documentdeleter.h>
 #include <documentsaver.h>
 #include <builder.h>
-#include <subjectpathmodifyer.h>
+#include <subjectpath.h>
 
 int main(int argc, char *argv[])
 {
@@ -43,11 +43,6 @@ int main(int argc, char *argv[])
     PdfMetaList list;
     DocumentAdder documentAdder;
     DocumentSaver documentSaver;
-    SubjectPathModifyer pathModifyer;
-
-    pdfMetaLister.setDirectory("Math");
-    pdfMetaLister.setMetaList(&list);
-    pdfMetaLister.list();
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);
     QObject::connect(&subjectDeleter, &SubjectDeleter::deleted, &subjectsLister, &SubjectsLister::update);
@@ -57,7 +52,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectsLister", &subjectsLister);
     engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
     engine.rootContext()->setContextProperty("documentSaver", &documentSaver);
-    engine.rootContext()->setContextProperty("pathModifyer", &pathModifyer);
+    engine.rootContext()->setContextProperty("subjectPath", &SubjectPath::path);
 
     engine.load(url);
 

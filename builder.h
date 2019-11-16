@@ -6,6 +6,9 @@
 #include <QThread>
 #include <QDir>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QProcess>
+#include <iostream>
 
 class MonetbuildThread : public QThread
 {
@@ -32,6 +35,9 @@ protected:
             p.start(cmd.c_str());
             p.waitForFinished();
             std::cerr << p.readAllStandardOutput().toStdString() << '\n';
+
+            QFile logsFile(QCoreApplication::applicationDirPath()+"/logs.out");
+            logsFile.write(p.readAllStandardOutput().toStdString().c_str());
         }(cmd.toStdString());
 #else
         std::string cmd("monetbuild.sh "+dir.absolutePath().toStdString());

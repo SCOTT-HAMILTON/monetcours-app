@@ -1,7 +1,7 @@
-import QtQuick 2.13
-import QtQuick.Controls 2.13
-import QtQuick.Layouts 1.13
-import QtQuick.Dialogs 1.3
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.2
 import Qt.labs.platform 1.1
 
 import "qrc:/QML/Editor" as Path
@@ -53,8 +53,8 @@ Rectangle {
             implicitHeight: parent.height*0.001
         }
         Text {
-            Layout.fillWidth: true
             id: noSubjectsText
+            Layout.fillWidth: true
             visible: false
             text: "There is no subjects right now."
             font.bold: true
@@ -174,9 +174,11 @@ Rectangle {
 //        folder:
         onAccepted: {
             console.log("You chose: " + folderDialog.folder)
-            pathModifyer.modifyPath(folder)
+            subjectPath.modifyPath(folder)
             subjectsLister.sync()
             console.log("file :"+folderDialog.folder)
+            if (subjectsLister.list.length>0)noSubjectsText.visible = false
+            else noSubjectsText.visible = true
         }
         onRejected: {
             console.log("Canceled")

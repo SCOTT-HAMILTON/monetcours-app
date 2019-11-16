@@ -2,12 +2,17 @@
 #define SUBJECTPATH_H
 
 #include <QString>
+#include <QObject>
+#include <QUrl>
 
-class SubjectPath
+class SubjectPath : public QObject
 {
+    Q_OBJECT
+
 public:
-    QString subjectPath();
-    void modifyPath(QString newpath);
+    explicit SubjectPath(QObject *parent = nullptr);
+    Q_INVOKABLE QString subjectPath();
+    Q_INVOKABLE void modifyPath(QUrl newpath);
 
     QString settingsFilePath = "/settings.ini";
     static SubjectPath path;

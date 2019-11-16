@@ -1,6 +1,6 @@
-import QtQuick 2.13
-import QtQuick.Controls 2.13
-import QtQml.Models 2.13
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQml.Models 2.12
 import Qt.labs.platform 1.0
 
 import "qrc:/QML/Editor/SubjectsManager" as Path

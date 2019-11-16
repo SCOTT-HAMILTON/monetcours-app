@@ -58,8 +58,12 @@ QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fi
     QString yaml_path = PdfToYamlPath::getYaml(dir.path()+"/"+fileName);
 
     YAML::Node doc;
+    qDebug() << "file path : " << yaml_path;
+
+    qDebug() << "file exists : " << QFile::exists(yaml_path);
 
     try {
+        qDebug() << QString::fromStdString(yaml_path.toStdString());
         doc = YAML::LoadFile(yaml_path.toStdString());
     } catch (const YAML::BadFile& e){
         qDebug() << "Error YAML bad file : " << yaml_path;
