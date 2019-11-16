@@ -23,5 +23,5 @@ QString SubjectPath::subjectPath()
 void SubjectPath::modifyPath(QString newpath)
 {
     QSettings settings(QCoreApplication::applicationDirPath()+settingsFilePath, QSettings::NativeFormat);
-    settings.setValue("R", newpath);
+    settings.setValue("subjects_path", newpath);
 }

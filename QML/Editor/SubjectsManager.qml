@@ -9,14 +9,15 @@ Item {
     id: root
     property int buttonSize: 100
     property var subjects: []
-    anchors.centerIn: parent
     height: 100
+    width: parent.width
 //    color: "white"
 
     ListView {
         id: listView
 
-        width: buttonSize*(model.count+1)
+        width: (model.count*buttonSize<root.width*0.6)?model.count*buttonSize:root.width*0.6
+        implicitWidth: model.count*buttonSize
         anchors.centerIn: parent
         height: 50
         model: Path.SubjectsManagerModel{
@@ -38,7 +39,6 @@ Item {
                         addSubjectSlider.open()
                     }else{
                         buttonMenu.open()
-                        //TODO slide EditSubjectPanel
                     }
 
                 }
@@ -70,10 +70,6 @@ Item {
         orientation: Qt.LeftToRight
         ScrollBar.horizontal: ScrollBar{
             active: true
-//            onActiveChanged: {
-//                if (!active)
-//                    active = true;
-//            }
             height: 20
         }
     }
