@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>translations/monetapp-fr_FR.qm</file>
+        <file>translations/monetapp-en_US.qm</file>
+    </qresource>
+</RCC>

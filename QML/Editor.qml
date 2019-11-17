@@ -16,7 +16,7 @@ Rectangle {
 
     RoundButton {
         id: subjectsPathButton
-        text: "Where are the subjects ?"
+        text: qsTr("Where are the subjects ?")
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: parent.height*0.02
@@ -34,7 +34,7 @@ Rectangle {
         Button{
             id: addDocButton
             Layout.alignment: Qt.AlignHCenter
-            text: "Add a document..."
+            text: qsTr("Add a document...")
 
             onClicked: {
                 fileDialog.open()
@@ -42,7 +42,7 @@ Rectangle {
         }
         Text{
             Layout.fillWidth: true
-            text: "Subjects :"
+            text: qsTr("Subjects :")
             font.bold: true
             font.pointSize: 17
             horizontalAlignment: Qt.AlignHCenter
@@ -56,7 +56,7 @@ Rectangle {
             id: noSubjectsText
             Layout.fillWidth: true
             visible: false
-            text: "There is no subjects right now."
+            text: qsTr("There is no subjects right now.")
             font.bold: true
             font.pointSize: 17
             horizontalAlignment: Qt.AlignHCenter
@@ -122,12 +122,11 @@ Rectangle {
         id: fileDialog
         title: "Please choose a file"
         defaultSuffix: "pdf"
-        nameFilters: ["Pdf files (*.pdf)"]
+        nameFilters: [qsTr("Pdf document")+" (*.pdf)"]
         onAccepted: {
             console.log("You chose: " + fileDialog.fileUrls)
             addDocumentPanel.open(fileDialog.fileUrls)
             addDocButton.visible = false
-            console.log("file :"+fileUrl)
         }
         onRejected: {
             console.log("Canceled")

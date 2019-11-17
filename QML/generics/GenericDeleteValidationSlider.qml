@@ -18,13 +18,13 @@ Path.GenericInteractiveSlider {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.10
-        text: "Are you sure you want to delete "+name+" ?"
+        text: qsTr("Are you sure you want to delete "+name+" ?")
         font.bold: true
         font.pointSize:  15
     }
 
     RoundButton {
-        text: "Delete"
+        text: qsTr("Delete")
         height: 50
         background: Rectangle {
             anchors.fill: parent
@@ -43,7 +43,7 @@ Path.GenericInteractiveSlider {
         }
     }
     RoundButton {
-        text: "Cancel"
+        text: qsTr("Cancel")
         height: 50
         radius: 10
         width: 100

@@ -16,7 +16,7 @@ Path.GenericInteractiveSlider {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.10
-        text: "What's the title for this file?"
+        text: qsTr("What's the title for this file?")
         font.bold: true
         font.pointSize:  16
     }
@@ -26,13 +26,13 @@ Path.GenericInteractiveSlider {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.25
         width: parent.width*0.3
-        placeholderText: "title"
+        placeholderText: qsTr("title")
     }
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.55
-        text: "What's the title for this file?"
+        text: qsTr("What's the title for this file?")
         font.bold: true
         font.pointSize:  16
     }
@@ -42,11 +42,11 @@ Path.GenericInteractiveSlider {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.70
         width: parent.width*0.5
-        placeholderText: "description"
+        placeholderText: qsTr("description")
     }
 
     RoundButton {
-        text: "Add"
+        text: qsTr("Add")
         radius: 10
         width: 100
         height: 50

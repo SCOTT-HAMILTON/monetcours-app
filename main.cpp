@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDebug>
+#include <QTranslator>
+#include <QLocale>
 
 #include <directorymaker.h>
 #include <subjectslister.h>
@@ -20,6 +22,12 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Monetcours");
 
     QGuiApplication app(argc, argv);
+
+    QTranslator translator;
+    QLocale locale;//(QLocale::English, QLocale::UnitedStates);
+
+    if (translator.load("://translations/monetapp-"+locale.name()+".qm"))
+        app.installTranslator(&translator);
 
     qmlRegisterType<SubjectsLister>("io.monetapp.subjectlister", 1, 0, "SubjectLister");
     qmlRegisterType<PdfMetaList>("io.monetapp.pdfmetalist", 1, 0, "PdfMetaList");

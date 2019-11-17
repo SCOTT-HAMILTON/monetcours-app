@@ -27,7 +27,7 @@ Path.GenericInteractiveSlider {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.10
-        text: "Which subject is this document about ?"
+        text: qsTr("Which subject is this document about ?")
         font.bold: true
         font.pointSize:  18
     }
@@ -45,7 +45,7 @@ Path.GenericInteractiveSlider {
     }
 
     RoundButton {
-        text: "Next"
+        text: qsTr("Next")
         height: 50
         radius: 10
         width: 100

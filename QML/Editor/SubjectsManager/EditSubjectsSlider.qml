@@ -53,12 +53,12 @@ GenPath.GenericInteractiveSlider {
             anchors.leftMargin: grid.width*0.4
             spacing: grid.width*0.15
             Text{
-                text: "Title"
+                text: qsTr("Title")
                 font.bold: true
                 font.pointSize: 15
             }
             Text{
-                text: "Description"
+                text: qsTr("Description")
                 font.bold: true
                 font.pointSize: 15
             }
@@ -96,18 +96,18 @@ GenPath.GenericInteractiveSlider {
                         text: title
                         width: grid.textWidth
                         clip: true
-                        placeholderText: "Title"
+                        placeholderText: qsTr("Title")
                     }
                     TextField {
                         id: descInput
                         text: description
                         width: grid.textWidth
                         clip: true
-                        placeholderText: "Description"
+                        placeholderText: qsTr("Description")
                     }
 
                     RoundButton{
-                        text: "delete"
+                        text: qsTr("delete")
                         background: Rectangle {
                             color: "red"
                             radius: 10
@@ -121,7 +121,7 @@ GenPath.GenericInteractiveSlider {
                     }
 
                     RoundButton{
-                        text: "save"
+                        text: qsTr("save")
                         background: Rectangle {
                             color: "lightgrey"
                             radius: 10
@@ -169,7 +169,7 @@ GenPath.GenericInteractiveSlider {
 
 
     RoundButton {
-        text: "Cancel"
+        text: qsTr("Cancel")
         height: 50
         radius: 10
         width: 100

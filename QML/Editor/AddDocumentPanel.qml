@@ -50,7 +50,7 @@ GenPath.GenericInteractiveSlider {
     }
 
     RoundButton {
-        text: "Cancel"
+        text: qsTr("Cancel")
         height: 50
         radius: 10
         width: 100

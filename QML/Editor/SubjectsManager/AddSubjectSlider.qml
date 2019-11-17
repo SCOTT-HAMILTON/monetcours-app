@@ -16,7 +16,7 @@ Path.GenericInteractiveSlider {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.10
-        text: "What's the name of the subject ?"
+        text: qsTr("What's the name of the subject ?")
         font.bold: true
         font.pointSize:  18
     }
@@ -24,11 +24,11 @@ Path.GenericInteractiveSlider {
     TextField {
         id: nameInput
         anchors.centerIn: parent
-        placeholderText: "Name"
+        placeholderText: qsTr("Name")
     }
 
     RoundButton {
-        text: "Next"
+        text: qsTr("Next")
         radius: 10
         width: 100
         anchors.right: parent.right

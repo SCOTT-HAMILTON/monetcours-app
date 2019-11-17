@@ -28,7 +28,11 @@ SOURCES += \
         subjectpath.cpp \
         subjectslister.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    translations.qrc
+
+TRANSLATIONS = translations/monetapp-en_US.ts
+TRANSLATIONS += translations/monetapp-fr_FR.ts
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
