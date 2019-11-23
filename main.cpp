@@ -15,6 +15,7 @@
 #include <documentsaver.h>
 #include <builder.h>
 #include <subjectpath.h>
+#include <exporter.h>
 
 int main(int argc, char *argv[])
 {
@@ -51,6 +52,7 @@ int main(int argc, char *argv[])
     PdfMetaList list;
     DocumentAdder documentAdder;
     DocumentSaver documentSaver;
+    Exporter exporter;
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);
     QObject::connect(&subjectDeleter, &SubjectDeleter::deleted, &subjectsLister, &SubjectsLister::update);
@@ -61,6 +63,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("documentAdder", &documentAdder);
     engine.rootContext()->setContextProperty("documentSaver", &documentSaver);
     engine.rootContext()->setContextProperty("subjectPath", &SubjectPath::path);
+    engine.rootContext()->setContextProperty("exporter", &exporter);
 
     engine.load(url);
 

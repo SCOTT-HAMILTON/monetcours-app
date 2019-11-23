@@ -6,8 +6,6 @@ import QtQuick.Controls.Styles 1.4
 import "qrc:/QML/Editor/SubjectsManager" as Path
 import "qrc:/QML/generics" as GenPath
 
-import io.monetapp.pdfmetalister 1.0
-import io.monetapp.pdfmetalist 1.0
 import io.monetapp.documentdeleter 1.0
 
 GenPath.GenericInteractiveSlider {
@@ -154,19 +152,6 @@ GenPath.GenericInteractiveSlider {
     onSubjectChanged: {
         update();
     }
-
-
-
-
-    PdfMetaLister {
-        id: lister
-        directory: subject
-        metaList: PdfMetaList {
-            id: list
-            name: "Victor"
-        }
-    }
-
 
     RoundButton {
         text: qsTr("Cancel")

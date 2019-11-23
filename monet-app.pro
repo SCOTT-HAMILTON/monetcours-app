@@ -19,6 +19,7 @@ SOURCES += \
         documentadder.cpp \
         documentdeleter.cpp \
         documentsaver.cpp \
+        exporter.cpp \
         main.cpp \
         pdfmetalist.cpp \
         pdfmetalister.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     documentadder.h \
     documentdeleter.h \
     documentsaver.h \
+    exporter.h \
     pdfmetadata.h \
     pdfmetalist.h \
     pdfmetalister.h \

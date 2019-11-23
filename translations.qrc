@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>translations/monetapp-fr_FR.qm</file>
         <file>translations/monetapp-en_US.qm</file>
+        <file>QML/Editor/ExportSlide.qml</file>
     </qresource>
 </RCC>

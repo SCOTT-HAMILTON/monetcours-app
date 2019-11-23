@@ -8,6 +8,8 @@ import "qrc:/QML/Editor" as Path
 import "qrc:/QML/Editor/SubjectsManager" as SubjectManagerPath
 
 import io.monetapp.subjectlister 1.0
+import io.monetapp.pdfmetalister 1.0
+import io.monetapp.pdfmetalist 1.0
 
 Rectangle {
     id: root
@@ -27,6 +29,45 @@ Rectangle {
             folderDialog.open()
         }
 
+    }
+
+    RoundButton {
+        id: importExportButton
+        text: qsTr("Import/Export")
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.topMargin: parent.height*0.02
+        anchors.leftMargin: parent.width*0.01
+
+        Menu {
+            id: importExportMenu
+            MenuItem {
+                text: "Import"
+                onTriggered: {
+
+                }//TODO export
+            }
+            MenuItem {
+                text: "Export"
+                onTriggered: {
+                    exportSlide.open()
+                }
+            }
+        }
+
+        onClicked: {
+            importExportMenu.open()
+        }
+
+    }
+
+    PdfMetaLister {
+        id: lister
+        directory: "None"
+        metaList: PdfMetaList {
+            id: list
+            name: "Victor"
+        }
     }
 
     ColumnLayout {
@@ -138,7 +179,6 @@ Rectangle {
 
     Path.AddDocumentPanel {
         id: addDocumentPanel
-        y: root.height.valueOf()
         visible: false
         onFinished: {
             console.log("File to add : "+subject+", "+title+", "+description)
@@ -159,11 +199,28 @@ Rectangle {
 
     }
 
-
-    Component.onCompleted: {
-        if (subjectsLister.list.length === 0) {
-            noSubjectsText.visible = true;
+    Path.ExportSlide {
+        id: exportSlide
+        visible: false
+        onFinished: {
+            console.log("File to add : "+subject+", "+title+", "+description)
+            addDocumentPanel.close()
+            addDocButton.visible = true
+            subjectsManager.visible = true
+            documentAdder.add(fileDialog.fileUrl, subject, title, description);
         }
+
+        subjects: subjectsLister.list
+//        onCanceled: {
+//            addDocumentPanel.close()
+//            addDocumentPanel.visible = true
+//            subjectsManager.visible = true
+//        }
+
+//        onOpened: {
+//            subjectsManager.visible = false
+//        }
+
     }
 
     FolderDialog {
@@ -184,6 +241,11 @@ Rectangle {
         }
         Component.onCompleted: {
             visible = false
+        }
+    }
+    Component.onCompleted: {
+        if (subjectsLister.list.length === 0) {
+            noSubjectsText.visible = true;
         }
     }
 }
