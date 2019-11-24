@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml.Models 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.2
 
 import "qrc:/QML/generics" as Path
 
@@ -45,7 +46,7 @@ Path.GenericInteractiveSlider {
                                 "insubject": ""})
             for (let i = 0; i < list.count(); ++i){
                 let fileName = list.fileName(i)
-                let isChecked = checkedFilenames.indexOf(fileName) !== -1 || subjectChecked
+                let isChecked = checkedFilenames.indexOf(sub+"/"+fileName) !== -1 || subjectChecked
                 filesModel.append({"heading" : "",
                                   "fileName" : fileName,
                                   "isChecked" : isChecked,
@@ -61,7 +62,7 @@ Path.GenericInteractiveSlider {
             let insubject = filesModel.get(i).insubject
 
             if (insubject === subject){
-                let index = checkedFilenames.indexOf(fileName)
+                let index = checkedFilenames.indexOf(insubject+"/"+fileName)
                 if (index !== -1){
                     checkedFilenames.splice(index, 1)
                 }
@@ -116,7 +117,8 @@ Path.GenericInteractiveSlider {
                     for (let i = 0; i < filesModel.count; ++i){
                         if (filesModel.get(i).heading === ""){
                             let fileName = filesModel.get(i).fileName
-                            checkedFilenames.push(fileName)
+                            checkedFilenames.push(filesModel.get(i).insubject+"/"+fileName)
+                            console.log("CHECKED FILES : "+checkedFilenames)
                         }else {
                             checkedSubjects.push(filesModel.get(i).heading)
                         }
@@ -163,6 +165,8 @@ Path.GenericInteractiveSlider {
                         width: grid.textWidth*0.5
                         visible: true
 
+                        anchors.top: parent.top
+
                         checked: isChecked
                         onCheckedChanged: {
                             if(checked!=isChecked)//prevent binding loop
@@ -181,12 +185,12 @@ Path.GenericInteractiveSlider {
                                     needUpdate = true
                                 }
                             }else {
-                                let index = checkedFilenames.indexOf(fileName)
+                                let index = checkedFilenames.indexOf(insubject+"/"+fileName)
                                 if (index !== -1){
                                     if (!checked)
                                         checkedFilenames.splice(index, 1)
                                 }else if (checked){
-                                    checkedFilenames.push(fileName)
+                                    checkedFilenames.push(insubject+"/"+fileName)
                                 }
                             }
 
@@ -212,6 +216,36 @@ Path.GenericInteractiveSlider {
 
                 width: 20
             }
+        }
+
+
+        RoundButton {
+            id: exportButton
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: parent.width*0.07
+            anchors.bottomMargin: parent.height*0.05
+            text: "Export"
+            width: parent.width*0.15
+            font.bold: true
+            onClicked: {
+                console.log(" files : "+checkedFilenames)
+                saveDialog.open()
+            }
+        }
+    }
+
+    FileDialog {
+        id: saveDialog
+        title: "Save Dialog"
+        selectExisting: false
+        visible: false
+        nameFilters: [qsTr("Monetcours transfert file")+" (*.monet)"]
+        defaultSuffix: ".monet"
+        onAccepted: {
+            console.log(fileUrls[0])
+            exporter.exportPdfs(checkedFilenames, fileUrls[0])
+
         }
     }
 }

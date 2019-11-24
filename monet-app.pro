@@ -41,6 +41,9 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
+DEFINES += QUAZIP_STATIC
+CONFIG += static staticlib link_prl ordered DEFINES += QT_NODLL
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -50,8 +53,17 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/
 win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cppd
 else:unix: LIBS += -lyaml-cpp
 
-INCLUDEPATH += $$PWD/../../../git/yaml-cpp/include
-DEPENDPATH += $$PWD/../../../git/yaml-cpp/include
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazip
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazipd
+else:unix: LIBS += -L/usr/local/lib -lquazip5
+
+win32:CONFIG(release, debug|release): INCLUDEPATH += $$PWD/../../../git/yaml-cpp/include
+win32:CONFIG(release, debug|release): DEPENDPATH += $$PWD/../../../git/yaml-cpp/include
+
+win32:CONFIG(release, debug|release): INCLUDEPATH += $$PWD/../../../git/quazip/include
+win32:CONFIG(release, debug|release): DEPENDPATH += $$PWD/../../../git/quazip/include
+
+
 
 HEADERS += \
     builder.h \
