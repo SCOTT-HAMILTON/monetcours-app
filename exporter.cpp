@@ -52,13 +52,15 @@ bool Exporter::exportPdfs(QStringList files, QString archiveFile)
 
     {
 
-        QDir curDir;
+        QDir tempFolderPath(QStandardPaths::standardLocations(QStandardPaths::TempLocation).first());
         {
-            QString tmpPath(QStandardPaths::standardLocations(QStandardPaths::TempLocation).first());
-            QDir tmp(tmpPath);
-            tmp.mkpath("monet-app");
-            curDir.setPath(tmpPath+"/monet-app");
+            QDir(tempFolderPath.path()+"/monet-app").removeRecursively();
         }
+        tempFolderPath.mkpath("monet-app");
+        QDir curDir;
+        curDir.setPath(tempFolderPath.path()+"/monet-app");
+
+
 
         foreach (auto file, files) {
             QString yaml = PdfToYamlPath::getYaml(file);
@@ -70,7 +72,8 @@ bool Exporter::exportPdfs(QStringList files, QString archiveFile)
             curDir.mkdir(fileDir.dirName());
             qDebug() << "copy : " << filePath << " to " << curDir.path()+"/"+file;
             QFile::copy(filePath, curDir.path()+"/"+file);
-            QFile::copy(filePath, curDir.path()+"/"+yaml);
+            QFile::copy(yamlPath, curDir.path()+"/"+yaml);
+            qDebug() << "yaml copy : from " << yamlPath << " to " << curDir.path()+"/"+yaml;
 
         }
         qDebug() << "archive file : " << archiveFile;
@@ -79,73 +82,9 @@ bool Exporter::exportPdfs(QStringList files, QString archiveFile)
         JlCompress::compressDir(archiveFile, curDir.path());
 
 //        JlCompress::extractDir(archiveFile, fromCompressed);
+        curDir.removeRecursively();
     }
 
 
     return true;
-}
-
-bool Exporter::createTestArchive(QuaZip &zip, const QString &zipName, const QStringList &fileNames, QTextCodec *codec, const QString &dir)
-{
-    if (codec != NULL) {
-        zip.setFileNameCodec(codec);
-    }
-    if (!zip.open(QuaZip::mdCreate)) {
-        qWarning("Couldn't open %s", zipName.toUtf8().constData());
-        return false;
-    }
-    int i = 0;
-    QDateTime dt1;
-    foreach (QString fileName, fileNames) {
-        QuaZipFile zipFile(&zip);
-        QString filePath = QDir(dir).filePath(fileName);
-        QFileInfo fileInfo(filePath);
-        QuaZipNewInfo newInfo(fileName, filePath);
-        if (i == 0) // to test code that needs different timestamps
-            newInfo.dateTime = newInfo.dateTime.addSecs(-60);
-        else if (i == 1) // will use for the next file too
-            dt1 = newInfo.dateTime;
-        else if (i == 2) // to test identical timestamps
-            newInfo.dateTime = dt1;
-        if (!zipFile.open(QIODevice::WriteOnly,
-                newInfo, NULL, 0,
-                fileInfo.isDir() ? 0 : 8)) {
-            qWarning("Couldn't open %s in %s", fileName.toUtf8()
-                .constData(), zipName.toUtf8().constData());
-            return false;
-        }
-        if (!fileInfo.isDir()) {
-            QFile file(filePath);
-            if (!file.open(QIODevice::ReadOnly)) {
-                qWarning("Couldn't open %s", filePath.toUtf8()
-                    .constData());
-                return false;
-            }
-            while (!file.atEnd()) {
-                char buf[4096];
-                qint64 l = file.read(buf, 4096);
-                if (l <= 0) {
-                    qWarning("Couldn't read %s", filePath.toUtf8()
-                        .constData());
-                    return false;
-                }
-                if (zipFile.write(buf, l) != l) {
-                    qWarning("Couldn't write to %s in %s",
-                        filePath.toUtf8().constData(),
-                        zipName.toUtf8().constData());
-                    return false;
-                }
-            }
-            file.close();
-        }
-        zipFile.close();
-        ++i;
-    }
-    zip.setComment(QString("This is the test archive"));
-    zip.close();
-    if (zipName.startsWith("<")) { // something like "<QIODevice pointer>"
-        return true;
-    } else {
-        return QFileInfo(zipName).exists();
-    }
 }

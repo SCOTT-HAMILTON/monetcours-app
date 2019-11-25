@@ -239,6 +239,7 @@ Path.GenericInteractiveSlider {
         id: saveDialog
         title: "Save Dialog"
         selectExisting: false
+        folder: documentsFolder
         visible: false
         nameFilters: [qsTr("Monetcours transfert file")+" (*.monet)"]
         defaultSuffix: ".monet"

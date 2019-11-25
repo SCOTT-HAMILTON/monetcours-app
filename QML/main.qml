@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import Qt.labs.platform 1.1
 
 import "qrc:/QML" as Path
 
@@ -10,6 +11,9 @@ ApplicationWindow {
     width: 1000
     height: 600
     title: qsTr("Scroll")
+
+
+    property string documentsFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
 
     TabBar {
         id: bar
