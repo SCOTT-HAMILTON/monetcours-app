@@ -14,7 +14,8 @@ Path.GenericInteractiveSlider {
     max: parent.width
     slidevar: "x"
 
-    signal finished(var title, var description);
+    signal finished(var title, var description)
+    signal canceled()
 
     property var subjects: []
     property var checkedFilenames: []
@@ -247,6 +248,20 @@ Path.GenericInteractiveSlider {
             console.log(fileUrls[0])
             exporter.exportPdfs(checkedFilenames, fileUrls[0])
 
+        }
+    }
+
+    RoundButton {
+        text: qsTr("Cancel")
+        height: 50
+        radius: 10
+        width: 100
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: parent.width*0.05
+        anchors.leftMargin: parent.width*0.1
+        onClicked: {
+            root.canceled()
         }
     }
 }

@@ -165,7 +165,7 @@ Rectangle {
         defaultSuffix: "pdf"
         nameFilters: [qsTr("Pdf document")+" (*.pdf)"]
         onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrls)
+            console.log("You chose: " + fileDialog.file)
             addDocumentPanel.open(fileDialog.fileUrls)
             addDocButton.visible = false
         }
@@ -185,7 +185,8 @@ Rectangle {
             addDocumentPanel.close()
             addDocButton.visible = true
             subjectsManager.visible = true
-            documentAdder.add(fileDialog.fileUrl, subject, title, description);
+            console.log("fileChoosen : "+fileDialog.file)
+            documentAdder.add(fileDialog.file, subject, title, description);
         }
         onCanceled: {
             addDocumentPanel.close()
@@ -203,11 +204,11 @@ Rectangle {
         id: exportSlide
         visible: false
         onFinished: {
-            console.log("File to add : "+subject+", "+title+", "+description)
-            addDocumentPanel.close()
-            addDocButton.visible = true
-            subjectsManager.visible = true
-            documentAdder.add(fileDialog.fileUrl, subject, title, description);
+            close()
+        }
+
+        onCanceled: {
+            close()
         }
 
         subjects: subjectsLister.list
