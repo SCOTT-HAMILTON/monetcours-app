@@ -40,7 +40,8 @@ protected:
             logsFile.write(p.readAllStandardOutput().toStdString().c_str());
         }(cmd.toStdString());
 #else
-        std::string cmd("monetbuild.sh "+dir.absolutePath().toStdString());
+        std::string cmd("monetbuild.sh \""+dir.absolutePath().toStdString()+'"');
+        qDebug() << "cmd : " << cmd.c_str();
         std::system(cmd.c_str());
 #endif
         emit builded();

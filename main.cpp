@@ -16,6 +16,7 @@
 #include <builder.h>
 #include <subjectpath.h>
 #include <exporter.h>
+#include <importer.h>
 
 int main(int argc, char *argv[])
 {
@@ -53,9 +54,11 @@ int main(int argc, char *argv[])
     DocumentAdder documentAdder;
     DocumentSaver documentSaver;
     Exporter exporter;
+    Importer importer;
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);
     QObject::connect(&subjectDeleter, &SubjectDeleter::deleted, &subjectsLister, &SubjectsLister::update);
+    QObject::connect(&importer, &Importer::filesImported, &subjectsLister, &SubjectsLister::update);
 
     engine.rootContext()->setContextProperty("subjectAdder", &subjectAdder);
     engine.rootContext()->setContextProperty("subjectDeleter", &subjectDeleter);
@@ -64,6 +67,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("documentSaver", &documentSaver);
     engine.rootContext()->setContextProperty("subjectPath", &SubjectPath::path);
     engine.rootContext()->setContextProperty("exporter", &exporter);
+    engine.rootContext()->setContextProperty("importer", &importer);
 
     engine.load(url);
 

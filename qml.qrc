@@ -18,5 +18,6 @@
         <file>QML/Editor/SubjectsManager/SaveDocumentSlider.qml</file>
         <file>QML/Deployer.qml</file>
         <file>QML/Editor/ExportSlide.qml</file>
+        <file>QML/Editor/ImportSlide.qml</file>
     </qresource>
 </RCC>

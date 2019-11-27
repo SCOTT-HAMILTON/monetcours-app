@@ -44,8 +44,8 @@ Rectangle {
             MenuItem {
                 text: "Import"
                 onTriggered: {
-
-                }//TODO export
+                    importSlide.open()
+                }
             }
             MenuItem {
                 text: "Export"
@@ -212,16 +212,18 @@ Rectangle {
         }
 
         subjects: subjectsLister.list
-//        onCanceled: {
-//            addDocumentPanel.close()
-//            addDocumentPanel.visible = true
-//            subjectsManager.visible = true
-//        }
+    }
 
-//        onOpened: {
-//            subjectsManager.visible = false
-//        }
+    Path.ImportSlide {
+        id: importSlide
+        visible: false
+        onFinished: {
+            close()
+        }
 
+        onCanceled: {
+            close()
+        }
     }
 
     FolderDialog {

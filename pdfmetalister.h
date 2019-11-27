@@ -17,9 +17,13 @@ public:
     explicit PdfMetaLister(QObject *parent = nullptr);
 
     Q_INVOKABLE void list();
+    Q_INVOKABLE QStringList listInPath(QString path);
+
     QString getDirectory() const;
     void setDirectory(QString newdir);
+    static QStringList listPdfsInPath(QString path);
     static QStringList listpdfs(QString directory);
+
     static QPair<QString, QString> load_config(QString directory, QString fileName);
     PdfMetaList* getMetaList();
     void setMetaList(PdfMetaList* list);

@@ -29,14 +29,20 @@ void PdfMetaLister::list()
     }
 }
 
+QStringList PdfMetaLister::listInPath(QString path)
+{
+    qDebug() << "Listing pdfs in specified path : " << path;
+    return listPdfsInPath(path);
+}
+
 QString PdfMetaLister::getDirectory() const
 {
     return directory;
 }
 
-QStringList PdfMetaLister::listpdfs(QString directory)
+QStringList PdfMetaLister::listPdfsInPath(QString path)
 {
-    QDir dir(SubjectPath::path.subjectPath()+"/"+directory);
+    QDir dir(path);
     QStringList tmp = dir.entryList(QStringList() << "*.*",QDir::Files);
     QRegExp regex1(".*\.pdf");
     regex1.setCaseSensitivity(Qt::CaseInsensitive);
@@ -49,6 +55,12 @@ QStringList PdfMetaLister::listpdfs(QString directory)
     return pdfs;
 }
 
+
+QStringList PdfMetaLister::listpdfs(QString directory)
+{
+    return listPdfsInPath(SubjectPath::path.subjectPath()+"/"+directory);
+}
+
 QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fileName)
 {
     QDir dir(directory);
@@ -58,7 +70,7 @@ QPair<QString, QString> PdfMetaLister::load_config(QString directory, QString fi
     YAML::Node doc;
     try {
         doc = YAML::LoadFile(yaml_path.toStdString());
-    } catch (const YAML::BadFile& e){
+    } catch (const YAML::BadFile&){
         qDebug() << "Error YAML bad file : " << yaml_path;
     }
 

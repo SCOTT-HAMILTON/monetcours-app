@@ -11,7 +11,9 @@ class SubjectsLister : public QObject
 
 public:
     explicit SubjectsLister(QObject *parent = nullptr);
+    static QStringList listSubjects(QString directory);
     static QStringList list();
+    Q_INVOKABLE QStringList listSubjectsInDirectory(QString directory);
     Q_INVOKABLE void sync();
 
 public slots:

@@ -17,36 +17,48 @@ Path.GenericInteractiveSlider {
     signal finished()
     signal canceled()
 
-    property var subjects: []
     property var checkedFilenames: []
     property var checkedSubjects: []
     property var needUpdate: false
+    property string extractedPath: "None"
 
     onOpened: {
-        update()
+        importDialog.open()
     }
+
 
     onNeedUpdateChanged: {
         if (needUpdate)
             update()
     }
 
+    function initView(){
+        textLabel.visible = true
+        blueRect.visible = true
+        update()
+    }
+
     function update(){
         needUpdate = false
         filesModel.clear()
 
+        let subjects = subjectsLister.listSubjectsInDirectory(extractedPath)
+        console.log("subjects in extracted : "+subjects)
+
 
         for (let sub in subjects) {
             let subject = subjects[sub]
-            lister.directory = subject
-            lister.list()
+            console.log("subject : "+subject)
+            console.log("listing pdfs in : "+extractedPath+"/"+subject)
+            let documents = lister.listInPath(extractedPath+"/"+subject)
             let subjectChecked = checkedSubjects.indexOf(subject)!==-1
+            console.log("documents : "+documents)
             filesModel.append({"heading" : subject,
                                   "fileName" : "",
                                   "isChecked": subjectChecked,
                                 "insubject": ""})
-            for (let i = 0; i < list.count(); ++i){
-                let fileName = list.fileName(i)
+            for (let i = 0; i < documents.length; ++i){
+                let fileName = documents[i]
                 let isChecked = checkedFilenames.indexOf(sub+"/"+fileName) !== -1 || subjectChecked
                 filesModel.append({"heading" : "",
                                   "fileName" : fileName,
@@ -73,15 +85,18 @@ Path.GenericInteractiveSlider {
     }
 
     Text {
-        text: qsTr("Which files do you want to export ?")
+        id: textLabel
+        text: qsTr("Which files do you want to import ?")
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.width*0.05
         font.pointSize: 20
+        visible: false
     }
 
     Rectangle {
         id: blueRect
+        visible: false
         width: root.width*0.9
         height: root.height*0.75
         anchors.horizontalCenter: parent.horizontalCenter
@@ -221,33 +236,35 @@ Path.GenericInteractiveSlider {
 
 
         RoundButton {
-            id: exportButton
+            id: importButton
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.rightMargin: parent.width*0.07
             anchors.bottomMargin: parent.height*0.05
-            text: "Export"
+            text: qsTr("Import")
             width: parent.width*0.15
             font.bold: true
             onClicked: {
                 console.log(" files : "+checkedFilenames)
-                saveDialog.open()
+                importer.importPdfs(checkedFilenames, extractedPath)
+                root.finished()
             }
         }
     }
 
     FileDialog {
-        id: saveDialog
-        title: "Save Dialog"
-        selectExisting: false
+        id: importDialog
+        title: "Import Dialog"
+        selectExisting: true
         folder: documentsFolder
         visible: false
         nameFilters: [qsTr("Monetcours transfert file")+" (*.monet)"]
         defaultSuffix: ".monet"
         onAccepted: {
             console.log(fileUrls[0])
-            exporter.exportPdfs(checkedFilenames, fileUrls[0])
-            root.finished()
+            extractedPath = importer.extractPdfs(fileUrls[0])
+            console.log("QML extracted to : "+extractedPath)
+            root.initView()
 
         }
     }

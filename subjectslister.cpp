@@ -11,9 +11,10 @@ SubjectsLister::SubjectsLister(QObject *parent) :
 
 }
 
-QStringList SubjectsLister::list()
+QStringList SubjectsLister::listSubjects(QString directory)
 {
-    QDir dir(SubjectPath::path.subjectPath());
+    QDir dir(directory);
+
     QDirIterator iterator(dir);
 
     QStringList list;
@@ -23,11 +24,20 @@ QStringList SubjectsLister::list()
             if (! (next.dirName() == ".." || next.dirName() == "."))
                 list.append(next.dirName());
         }
-    }/*
-    if (list.size()>0){
-        qDebug() << "c++ list : " << list;
-    }*/
+    }
     return list;
+
+}
+
+QStringList SubjectsLister::list()
+{
+    return listSubjects(SubjectPath::path.subjectPath());
+
+}
+
+QStringList SubjectsLister::listSubjectsInDirectory(QString directory)
+{
+    return listSubjects(directory);
 }
 
 void SubjectsLister::sync()
