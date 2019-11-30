@@ -1,4 +1,4 @@
-QT += quick qml
+QT += quick qml webengine
 
 CONFIG += c++17
 
@@ -20,6 +20,7 @@ SOURCES += \
         documentdeleter.cpp \
         documentsaver.cpp \
         exporter.cpp \
+        gitstatuschecker.cpp \
         importer.cpp \
         main.cpp \
         pdfmetalist.cpp \
@@ -50,20 +51,34 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cpp
-win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cppd
-else:unix: LIBS += -lyaml-cpp
+win32:CONFIG(release, debug|release):{
+    LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cpp
+    LIBS += -L$$PWD/../../../git/yaml-cpp/lib/ -lyaml-cppd
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazip
-win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazipd
-else:unix: LIBS += -L/usr/local/lib -lquazip5
+    LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazip
+    LIBS += -L$$PWD/../../../git/quazip/lib/ -lquazipd
 
-win32:CONFIG(release, debug|release): INCLUDEPATH += $$PWD/../../../git/yaml-cpp/include
-win32:CONFIG(release, debug|release): DEPENDPATH += $$PWD/../../../git/yaml-cpp/include
+    LIBS += -L$$PWD/../../../git/git2/lib/ -lgit2
+    LIBS += -L$$PWD/../../../git/git2/lib/ -lgit2d
 
-win32:CONFIG(release, debug|release): INCLUDEPATH += $$PWD/../../../git/quazip/include
-win32:CONFIG(release, debug|release): DEPENDPATH += $$PWD/../../../git/quazip/include
+    INCLUDEPATH += $$PWD/../../../git/yaml-cpp/include
+    DEPENDPATH += $$PWD/../../../git/yaml-cpp/include
 
+    INCLUDEPATH += $$PWD/../../../git/quazip/include
+    DEPENDPATH += $$PWD/../../../git/quazip/include
+
+    INCLUDEPATH += $$PWD/../../../git/git2/include
+    DEPENDPATH += $$PWD/../../../git/git2/include
+}
+else:unix: {
+    LIBS += -L/usr/local/lib
+
+    LIBS += -lyaml-cpp
+    LIBS += -lquazip5
+    LIBS += -lz -lpcre -lssl -lcrypto -ldl -lssh2 -static-libgcc -lgit2
+}
+
+win32:CONFIG(release, debug|release):
 
 
 HEADERS += \
@@ -73,6 +88,7 @@ HEADERS += \
     documentdeleter.h \
     documentsaver.h \
     exporter.h \
+    gitstatuschecker.h \
     importer.h \
     pdfmetadata.h \
     pdfmetalist.h \

@@ -5,18 +5,19 @@
 #include <QTranslator>
 #include <QLocale>
 
-#include <directorymaker.h>
-#include <subjectslister.h>
-#include <subjectadder.h>
-#include <subjectdeleter.h>
-#include <pdfmetalister.h>
-#include <documentadder.h>
-#include <documentdeleter.h>
-#include <documentsaver.h>
-#include <builder.h>
-#include <subjectpath.h>
-#include <exporter.h>
-#include <importer.h>
+#include "directorymaker.h"
+#include "subjectslister.h"
+#include "subjectadder.h"
+#include "subjectdeleter.h"
+#include "pdfmetalister.h"
+#include "documentadder.h"
+#include "documentdeleter.h"
+#include "documentsaver.h"
+#include "builder.h"
+#include "subjectpath.h"
+#include "exporter.h"
+#include "importer.h"
+#include "gitstatuschecker.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +56,7 @@ int main(int argc, char *argv[])
     DocumentSaver documentSaver;
     Exporter exporter;
     Importer importer;
+    GitStatusChecker gitStatusChecker;
 
     QObject::connect(&subjectAdder, &SubjectAdder::added, &subjectsLister, &SubjectsLister::update);
     QObject::connect(&subjectDeleter, &SubjectDeleter::deleted, &subjectsLister, &SubjectsLister::update);
@@ -68,6 +70,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("subjectPath", &SubjectPath::path);
     engine.rootContext()->setContextProperty("exporter", &exporter);
     engine.rootContext()->setContextProperty("importer", &importer);
+    engine.rootContext()->setContextProperty("gitStatusChecker", &gitStatusChecker);
 
     engine.load(url);
 

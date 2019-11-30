@@ -19,5 +19,7 @@
         <file>QML/Deployer.qml</file>
         <file>QML/Editor/ExportSlide.qml</file>
         <file>QML/Editor/ImportSlide.qml</file>
+        <file>QML/Deployer/GitPublishSlider.qml</file>
+        <file>QML/Deployer/GitHubSignUpSlider.qml</file>
     </qresource>
 </RCC>

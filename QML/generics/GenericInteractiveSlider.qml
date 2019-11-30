@@ -5,6 +5,8 @@ Rectangle {
     width: parent.width
     height: parent.height
 
+    property bool isSlider: true
+
     property int max: -1
     property int min: 0
     property string slidevar: "y"
@@ -15,14 +17,24 @@ Rectangle {
     signal closing();
 
     property var open: function(){
+        for (var i = 0; i < parent.children.length; ++i) {
+            if (!parent.children[i].isSlider){
+                parent.children[i].enabled = false
+            }
+        }
         visible = true
         x = max
         genslideEnterAnim.stop()
         genslideEnterAnim.start()
-        opening();
+        opening()
     }
 
     property var close: function(){
+        for (var i = 0; i < parent.children.length; ++i) {
+            if (!parent.children[i].isSlider){
+                parent.children[i].enabled = true
+            }
+        }
         genslideExitAnim.start()
         closing()
     }

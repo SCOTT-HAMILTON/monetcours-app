@@ -13,8 +13,8 @@ Rectangle {
         anchors.centerIn: parent
         font.bold: true
         font.pointSize: 20
-        width: 100
-        height: 50
+        width: parent.width*0.3
+        height: parent.height*0.1
 
         onClicked: {
             enabled = false
